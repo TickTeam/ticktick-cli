@@ -1,6 +1,6 @@
 # TickTick CLI
 
-Command-line tool for [TickTick](https://ticktick.com), written in TypeScript. It maps directly to the 14 endpoints of [TickTick Open API v1](https://developer.ticktick.com/api#/openapi).
+Command-line tool for [TickTick](https://ticktick.com), written in TypeScript. It wraps [TickTick Open API v1](https://developer.ticktick.com/api#/openapi) with a convenient CLI.
 
 ## Install
 
