@@ -1,6 +1,6 @@
 {
   "name": "@ticktick/ticktick-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Command-line interface for TickTick",
   "type": "module",
   "main": "dist/index.js",
@@ -8,6 +8,8 @@
     "ticktick": "dist/index.js"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
+    "publish:npm": "npm publish --access public",
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch",
     "start": "node dist/index.js",

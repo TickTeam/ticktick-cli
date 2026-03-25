@@ -5,7 +5,7 @@ import { type Command, program } from 'commander'
 program
   .name('ticktick')
   .description('TickTick CLI – manage tasks and projects from the terminal')
-  .version('0.1.0')
+  .version('0.1.2')
   .option('--json', 'Output as JSON (global default for subcommands)')
 
 const commands: Record<string, [string, () => Promise<(p: Command) => void>]> = {
