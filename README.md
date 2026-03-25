@@ -129,8 +129,8 @@ Appears in **`task get … --json`**, **`task create` / `task update` with `--js
 | `timeZone`                | Time zone                                                         | `--time-zone`                                   |
 | `isAllDay`                | All-day task                                                      | `--all-day`                                     |
 | `priority`                | `0` none, `1` low, `3` medium, `5` high                           | `--priority`                                    |
-| `reminders`               | Reminder triggers                                                 | `--reminders`                                   |
-| `repeatFlag`              | Recurrence rule                                                   | `--repeat`                                      |
+| `reminders`               | Reminder trigger strings (format below)                         | `--reminders`                                   |
+| `repeatFlag`              | Recurrence rule: `RRULE` or `ERULE` (format below)                | `--repeat`                                      |
 | `completedTime`           | When completed                                                    | —                                               |
 | `status`                  | `0` open, `-1` abandoned, `2` completed                           | —                                               |
 | `items`                   | Checklist items                                                   | `--items` (see **Checklist item**)              |
@@ -140,6 +140,41 @@ Appears in **`task get … --json`**, **`task create` / `task update` with `--js
 | `assignor`                | Assignor metadata                                                 | —                                               |
 | `etag`                    | Optimistic locking on the server                                  | —                                               |
 | `kind`                    | e.g. `TASK`, `NOTE`, or `CHECKLIST`                               | —                                               |
+
+#### `reminders` format
+
+Each element must match this pattern:
+
+`TRIGGER(;RELATED=START|END)?:(-)?P[nY][nM][nW][nD][T[nH][nM][nS]]`
+
+- **TRIGGER** — required prefix.
+- **`;RELATED=START` or `;RELATED=END`** — optional; whether the trigger is relative to the task start or end time.
+- **`-` after the colon** — optional; the trigger fires **before** the reference time. If omitted, it fires **after**.
+- **`P` …** — duration designator; **`nY` `nM` `nW` `nD`** years, months, weeks, days; **`T`** separates date and time parts; **`nH` `nM` `nS`** hours, minutes, seconds (similar in spirit to ISO-8601 duration, with direction and reference semantics).
+
+Examples:
+
+| String | Meaning |
+| ------ | ------- |
+| `TRIGGER:-PT60M` | 60 minutes before the reference time |
+| `TRIGGER:-P1DT2H` | 1 day and 2 hours before |
+| `TRIGGER;RELATED=END:-PT15M` | 15 minutes before the **end** time |
+| `TRIGGER:PT0S` | “On time” (at the reference instant) |
+
+#### `repeatFlag` format
+
+Must be a single valid recurrence string. Use:
+
+- **`RRULE`** — standard recurrence (RFC-style).
+- **`ERULE`** — custom or advanced recurrence.
+
+Do **not** mix `RRULE` and `ERULE` in one value.
+
+Examples:
+
+- `RRULE:FREQ=DAILY`
+- `RRULE:FREQ=WEEKLY;BYDAY=MO,WE`
+- `ERULE:NAME=CUSTOM;BYDATE=20260325,20260330`
 
 ### Checklist item (`items[]`)
 
