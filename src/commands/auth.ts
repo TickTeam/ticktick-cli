@@ -48,10 +48,21 @@ async function logout(): Promise<void> {
   console.log(chalk.green('✓'), 'Token cleared')
 }
 
+async function setToken(token: string): Promise<void> {
+  await saveAccessToken(token)
+  console.log(chalk.green('✓'), 'Token saved')
+}
+
 export function registerAuthCommand(program: Command): void {
   const auth = program.command('auth').description('OAuth and token storage')
 
   auth.command('login').description('Sign in via OAuth (PKCE, opens browser)').action(loginWithOAuth)
+
+  auth
+    .command('token')
+    .description('Set access token directly')
+    .argument('<token>', 'access token string')
+    .action(setToken)
 
   auth.command('status').description('Print whether a token is stored').action(showStatus)
 

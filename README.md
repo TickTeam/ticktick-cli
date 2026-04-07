@@ -30,12 +30,16 @@ ticktick auth login
 
 Your browser will open for TickTick authorization.
 
-Auth subcommands:
+Auth subcommands (OAuth login is recommended; use the token method when browser auth is unavailable):
 
 ```bash
-ticktick auth status   # see if you are logged in
-ticktick auth logout   # clear the stored token
+ticktick auth login           # OAuth browser login (recommended)
+ticktick auth token <token>   # set access token directly (for headless environments)
+ticktick auth status          # see if you are logged in
+ticktick auth logout          # clear the stored token
 ```
+
+**Getting a Token**: Log in to the TickTick web app, click your avatar in the top-left corner, and go to Settings > Account > API Token to create and copy a token.
 
 ## Commands
 
