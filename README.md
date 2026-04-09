@@ -52,9 +52,11 @@ ticktick task get <projectId> <taskId>
 # Create a task
 ticktick task create --title "Buy milk" --project <projectId>
 ticktick task create --title "Meeting" --project <projectId> --priority 5 --due-date "2026-03-10T09:00:00+0000"
+ticktick task create --title "Review" --project <projectId> --tags work,urgent
 
 # Update a task
 ticktick task update <taskId> --id <taskId> --project <projectId> --title "Updated title"
+ticktick task update <taskId> --id <taskId> --project <projectId> --tags work,urgent
 
 # Complete a task
 ticktick task complete <projectId> <taskId>
@@ -138,7 +140,7 @@ Appears in **`task get … --json`**, **`task create` / `task update` with `--js
 | `completedTime`           | When completed                                                    | —                                               |
 | `status`                  | `0` open, `-1` abandoned, `2` completed                           | —                                               |
 | `items`                   | Checklist items                                                   | `--items` (see **Checklist item**)              |
-| `tags`                    | Tags                                                              | —                                               |
+| `tags`                    | Tags                                                              | `--tags` (comma-separated)                      |
 | `columnId` / `columnName` | Kanban column                                                     | —                                               |
 | `parentId` / `childIds`   | Subtask links                                                     | —                                               |
 | `assignor`                | Assignor metadata                                                 | —                                               |

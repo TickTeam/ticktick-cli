@@ -75,6 +75,7 @@ export interface CreateTaskInput {
   priority?: number
   sortOrder?: number
   items?: ChecklistItem[]
+  tags?: string[]
 }
 
 export interface UpdateTaskInput {
@@ -92,6 +93,7 @@ export interface UpdateTaskInput {
   priority?: number
   sortOrder?: number
   items?: ChecklistItem[]
+  tags?: string[]
 }
 
 export interface MoveTaskInput {

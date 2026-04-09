@@ -18,6 +18,7 @@ interface TaskCreateOptions {
   priority?: string
   sortOrder?: string
   items?: string
+  tags?: string
   json?: boolean
 }
 
@@ -36,6 +37,7 @@ interface TaskUpdateOptions {
   priority?: string
   sortOrder?: string
   items?: string
+  tags?: string
   json?: boolean
 }
 
@@ -96,6 +98,7 @@ async function createTask(options: TaskCreateOptions): Promise<void> {
     priority: options.priority ? parseInt(options.priority, 10) : undefined,
     sortOrder: options.sortOrder ? parseInt(options.sortOrder, 10) : undefined,
     items: options.items ? parseItems(options.items) : undefined,
+    tags: options.tags ? parseStringList(options.tags) : undefined,
   })
 
   if (options.json) {
@@ -123,6 +126,7 @@ async function updateTask(taskId: string, options: TaskUpdateOptions): Promise<v
     priority: options.priority ? parseInt(options.priority, 10) : undefined,
     sortOrder: options.sortOrder ? parseInt(options.sortOrder, 10) : undefined,
     items: options.items ? parseItems(options.items) : undefined,
+    tags: options.tags ? parseStringList(options.tags) : undefined,
   })
 
   if (options.json) {
@@ -244,6 +248,7 @@ export function registerTaskCommand(program: Command): void {
     .option('--priority <n>', 'Priority: 0=None, 1=Low, 3=Medium, 5=High')
     .option('--sort-order <n>', 'Sort order')
     .option('--items <json|csv>', 'Subtasks as JSON array or comma-separated titles')
+    .option('--tags <tags>', 'Comma-separated task tags')
     .option('--json', 'Output as JSON')
     .action(async (options) => {
       await createTask(options)
@@ -267,6 +272,7 @@ export function registerTaskCommand(program: Command): void {
     .option('--priority <n>', 'Priority: 0=None, 1=Low, 3=Medium, 5=High')
     .option('--sort-order <n>', 'Sort order')
     .option('--items <json|csv>', 'Subtasks as JSON array or comma-separated titles')
+    .option('--tags <tags>', 'Comma-separated task tags')
     .option('--json', 'Output as JSON')
     .action(updateTask)
 
