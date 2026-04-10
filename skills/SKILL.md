@@ -62,9 +62,13 @@ explain the error to the user and suggest they fix their Node/npm setup first.
 
 ---
 
-## 3. Authentication (OAuth PKCE)
+## 3. Authentication
 
-The CLI uses OAuth PKCE in a browser to log in.
+The CLI supports two authentication methods: OAuth PKCE (recommended) and manual Token.
+
+### 3.1 OAuth PKCE (Recommended)
+
+The CLI uses OAuth PKCE in a browser to log in. This is the default and recommended way.
 
 **Standard login flow:**
 
@@ -99,6 +103,25 @@ The CLI uses OAuth PKCE in a browser to log in.
   - Checking that the browser window actually opened.
   - Making sure pop-up blockers or firewalls are not blocking the OAuth page.
   - Trying again later if the API seems temporarily unavailable.
+
+### 3.2 Token (Headless Environments)
+
+If the environment is headless (no browser available) or the user cannot use browser-based OAuth, they can log in via an access token directly.
+
+**When to use:**
+- Running inside an AI agent environment without a web browser interface.
+- SSH sessions, CI/CD pipelines, or remote servers.
+
+**How to instruct the user:**
+Ask the user to generate an API Token and provide it to you or run the command themselves.
+- Tell the user to: **Log in to the TickTick web app, click their avatar in the top-left corner, and go to Settings > Account > API Token to create and copy a token.**
+
+**How to apply the token:**
+Once the user provides the token, run:
+
+```bash
+ticktick auth token <token>
+```
 
 ---
 
@@ -158,6 +181,7 @@ Optional recommended flags (only if supported by the CLI and relevant to the req
 
 - `--content "<detailed description>"`
 - `--dueDate "<ISO 8601 date/time>"`
+- `--tags "<comma-separated tags>"`
 - Other fields as documented in the CLI/README.
 
 After creation, you may run (if needed):
@@ -186,7 +210,7 @@ ticktick task update <taskId> \
   --title "New title"
 ```
 
-Add more flags as needed (content, due date, etc.), based on the user’s request.
+Add more flags as needed (content, due date, tags, etc.), based on the user’s request.
 
 **Complete a task**:
 
